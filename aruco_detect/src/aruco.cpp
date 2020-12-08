@@ -1722,26 +1722,11 @@ class MarkerSubpixelParallelAdaptiveWinSize : public ParallelLoopBody {
             Size winsize(params->cornerRefinementWinSize, params->cornerRefinementWinSize);
             if (params->cornerRefinementAdaptiveWinSize)
             {
-                vector< Point2f > cornerPoints = corners.getMat(i);
+                const vector< Point2f > cornerPoints = corners.getMat(i);
                 // find the bottom left corner point
-                int left_top_index = -1, left_bottom_index = -1;
-                {
-                    Point2f center(0.0f, 0.0f);
-                    for (const auto &p : cornerPoints) center += p;
-                    center /= 4.0f;
-                    for (int j = 0; j < 4; ++j)
-                    {
-                        if (cornerPoints[j].x < center.x)
-                        {
-                            if (cornerPoints[j].y > center.y) left_bottom_index = j;
-                            else left_top_index = j;
-                        }
-                        continue;
-                    }
-                }
-                CV_Assert(left_top_index >= 0 && left_bottom_index >= 0);
-                Point2f lb_vec = (cornerPoints[(left_bottom_index + 2) % 4] - cornerPoints[left_bottom_index]);
-                Point2f lt_vec = (cornerPoints[(left_top_index + 2) % 4] - cornerPoints[left_top_index]);
+                const int left_top_index = 0, left_bottom_index = 1;
+                const Point2f lb_vec = (cornerPoints[(left_bottom_index + 2) % 4] - cornerPoints[left_bottom_index]);
+                const Point2f lt_vec = (cornerPoints[(left_top_index + 2) % 4] - cornerPoints[left_top_index]);
                 float min_v = min(fabs(norm(lb_vec) * cos(atan2(lb_vec.y, lb_vec.x))), fabs(norm(lt_vec) * cos(atan2(lt_vec.y, lt_vec.x)))) / (markerSize + 2);
                 float min_h = min(fabs(norm(lb_vec) * sin(atan2(lb_vec.y, lb_vec.x))), fabs(norm(lt_vec) * sin(atan2(lt_vec.y, lt_vec.x)))) / (markerSize + 2);
                 // if window size is large enough, make it small to avoid jumping points
@@ -1750,8 +1735,6 @@ class MarkerSubpixelParallelAdaptiveWinSize : public ParallelLoopBody {
 
                 winsize = Size(max(min_v, static_cast<float>(params->cornerRefinementWinSize)),
                                max(min_h, static_cast<float>(params->cornerRefinementWinSize)));
-                // std::cout << "adaptive winsize: " << winsize << " markersize: " << markerSize << std::endl;
-                // std::cout << "lb: " << lb_vec << " lt: " << lt_vec << std::endl;
             }
 
             cornerSubPix(*grey, corners.getMat(i), winsize,
