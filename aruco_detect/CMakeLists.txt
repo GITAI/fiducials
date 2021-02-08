@@ -22,7 +22,7 @@ find_package(OpenCV REQUIRED)
 
 generate_dynamic_reconfigure_options(cfg/DetectorParams.cfg)
 
-catkin_package(INCLUDE_DIRS DEPENDS OpenCV)
+catkin_package(INCLUDE_DIRS include DEPENDS OpenCV LIBRARIES ${PROJECT_NAME})
 
 ###########
 ## Build ##
