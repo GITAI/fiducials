@@ -604,11 +604,18 @@ static void _copyVector2Output(vector< vector< Point2f > > &vec, OutputArrayOfAr
 /**
  * @brief Identify square candidates according to a marker dictionary
  */
+/*
 static void _identifyCandidates(InputArray _image, vector< vector< Point2f > >& _candidates,
                                 InputArrayOfArrays _contours, const Ptr<Dictionary> &_dictionary,
                                 vector< vector< Point2f > >& _accepted, vector< int >& ids,
                                 const Ptr<DetectorParameters> &params,
                                 OutputArrayOfArrays _rejected = noArray()) {
+*/
+void _identifyCandidates(InputArray _image, vector< vector< Point2f > >& _candidates,
+                         InputArrayOfArrays _contours, const Ptr<Dictionary> &_dictionary,
+                         vector< vector< Point2f > >& _accepted, vector< int >& ids,
+                         const Ptr<DetectorParameters> &params,
+                         OutputArrayOfArrays _rejected) {
 
     int ncandidates = (int)_candidates.size();
 
@@ -659,7 +666,10 @@ static void _identifyCandidates(InputArray _image, vector< vector< Point2f > >& 
 /**
   * @brief Final filter of markers after its identification
   */
+/*
 static void _filterDetectedMarkers(vector< vector< Point2f > >& _corners, vector< int >& _ids) {
+*/
+void _filterDetectedMarkers(vector< vector< Point2f > >& _corners, vector< int >& _ids) {
 
     CV_Assert(_corners.size() == _ids.size());
     if(_corners.empty()) return;

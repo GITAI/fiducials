@@ -570,4 +570,21 @@ CV_EXPORTS_W double calibrateCameraAruco(
 }
 }
 
+// Expose internal functions for aruco detection
+namespace cv
+{
+namespace aruco
+{
+using namespace std;
+
+void _identifyCandidates(InputArray _image, vector< vector< Point2f > >& _candidates,
+                         InputArrayOfArrays _contours, const Ptr<Dictionary> &_dictionary,
+                         vector< vector< Point2f > >& _accepted, vector< int >& ids,
+                         const Ptr<DetectorParameters> &params,
+                         OutputArrayOfArrays _rejected = noArray());
+
+void _filterDetectedMarkers(vector< vector< Point2f > >& _corners, vector< int >& _ids);
+}
+}
+
 #endif
