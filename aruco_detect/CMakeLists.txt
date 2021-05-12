@@ -62,9 +62,15 @@ install(TARGETS aruco_detect aruco_detect_node
 catkin_install_python(PROGRAMS scripts/create_markers.py
         DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
 )
-install(DIRECTORY launch/
+install(DIRECTORY launch
         DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch
-) 
+)
+install(DIRECTORY include/${PROJECT_NAME}
+        DESTINATION ${CATKIN_PACKAGE_INCLUDE_DESTINATION}
+)
+install(FILES nodelet_plugins.xml
+        DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+)
 
 ###########
 ## Tests ##
