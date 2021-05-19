@@ -1,0 +1,52 @@
+<launch>
+  <node name="image_publisher" pkg="gitai_tools" type="image_publisher.py">
+    <remap from="~output" to="aruco_detect/camera"/>
+    <remap from="~output/camera_info" to="aruco_detect/camera_info"/>
+    <rosparam subst_value="true">
+      image_path: $(find aruco_detect)/test/test_images/tag_01_d7_14cm.png
+      camera_info_path: $(find aruco_detect)/test/camera_info.yaml
+      width: 1280
+      height: 720
+      rate: 1.0
+    </rosparam>
+  </node>
+  <node name="false_image_publisher" pkg="gitai_tools" type="image_publisher.py">
+    <remap from="~output" to="aruco_detect/camera"/>
+    <rosparam subst_value="true">
+      image_path: $(find aruco_detect)/test/test_images/tag_01_d7_14cm_false.png
+      camera_info_path: $(find aruco_detect)/test/camera_info.yaml
+      width: 1280
+      height: 720
+      rate: 5.0
+    </rosparam>
+  </node>
+
+  <node pkg="aruco_detect" name="aruco_detect" type="aruco_detect"
+        output="screen">
+    <rosparam>
+      image_transport: raw
+      publish_images: true
+      fiducial_len: 0.145
+      enable_debug: true
+    </rosparam>
+  </node>
+
+  <test test-name="test_aruco_detect"
+        name="test_aruco_detect" pkg="rostest" type="publishtest">
+    <rosparam>
+      topics:
+      - name: /aruco_detect/camera
+        timeout: 10
+      - name: /aruco_detect/camera_info
+        timeout: 10
+      - name: /aruco_detect/fiducial_vertices
+        timeout: 10
+      - name: /aruco_detect/fiducial_transforms
+        timeout: 10
+      - name: /aruco_detect/fiducial_images
+        timeout: 10
+      - name: /aruco_detect/debug_image_0
+        timeout: 10
+    </rosparam>
+  </test>
+</launch>  
