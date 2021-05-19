@@ -1861,10 +1861,13 @@ void detectMarkers(InputArray _image, const Ptr<Dictionary> &_dictionary, Output
 
     } // for each thresholded image
 
+    int max_cand = 0;
+    for (const auto &c : candidates) max_cand = c.size() > max_cand ? c.size() : max_cand;
+    std::cout << "candidates.size=" << candidates.size() << " max_cand=" << max_cand << std::endl;
+    if (candidates.empty() || max_cand == 0) return;
+
     // candidates -> _corners
     {
-      int max_cand = 0;
-      for (const auto &c : candidates) max_cand = c.size() > max_cand ? c.size() : max_cand;
       const int dims[3] = { (int)candidates.size(), max_cand, 4};
       std::cout << "dims=" << dims[0] << " " << dims[1] << " " << dims[2] << std::endl;
       _corners.create(3, dims, CV_32FC2);
