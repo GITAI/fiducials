@@ -1418,12 +1418,16 @@ void drawAxis(InputOutputArray _image, InputArray _cameraMatrix, InputArray _dis
     axisPoints.push_back(Point3f(length, 0, 0));
     axisPoints.push_back(Point3f(0, length, 0));
     axisPoints.push_back(Point3f(0, 0, length));
-    vector< Point2f > imagePoints;
-    projectPoints(axisPoints, _rvec, _tvec, _cameraMatrix, _distCoeffs, imagePoints);
+    vector< Point2f > imagePoints2f;
+    projectPoints(axisPoints, _rvec, _tvec, _cameraMatrix, _distCoeffs, imagePoints2f);
+    vector< Point > imagePoints { imagePoints2f.begin(), imagePoints2f.end() };
 
     // draw axis lines
+    clipLine(_image.size(), imagePoints[0], imagePoints[1]);
     line(_image, imagePoints[0], imagePoints[1], Scalar(0, 0, 255), 3);
+    clipLine(_image.size(), imagePoints[0], imagePoints[2]);
     line(_image, imagePoints[0], imagePoints[2], Scalar(0, 255, 0), 3);
+    clipLine(_image.size(), imagePoints[0], imagePoints[3]);
     line(_image, imagePoints[0], imagePoints[3], Scalar(255, 0, 0), 3);
 }
 
