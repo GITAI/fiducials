@@ -442,7 +442,11 @@ CV_EXPORTS_W void refineDetectedMarkers(
  */
 CV_EXPORTS_W void drawDetectedMarkers(InputOutputArray image, InputArrayOfArrays corners,
                                       InputArray ids = noArray(),
-                                      Scalar borderColor = Scalar(0, 255, 0));
+                                      Scalar borderColor = Scalar(0, 255, 0),
+                                      int borderThickness = 1,
+                                      int cornerThickness = 1,
+                                      double idScale = 0.5,
+                                      int idThickness = 1);
 
 
 
@@ -463,7 +467,7 @@ CV_EXPORTS_W void drawDetectedMarkers(InputOutputArray image, InputArrayOfArrays
  * coordinate system, i.e. the system centered on the marker/board. Useful for debugging purposes.
  */
 CV_EXPORTS_W void drawAxis(InputOutputArray image, InputArray cameraMatrix, InputArray distCoeffs,
-                           InputArray rvec, InputArray tvec, float length);
+                           InputArray rvec, InputArray tvec, float length, int thickness = 3);
 
 
 
