@@ -1359,7 +1359,8 @@ Ptr<GridBoard> GridBoard::create(int markersX, int markersY, float markerLength,
 /**
  */
 void drawDetectedMarkers(InputOutputArray _image, InputArrayOfArrays _corners,
-                         InputArray _ids, Scalar borderColor) {
+                         InputArray _ids, Scalar borderColor, int borderThickness,
+                         int cornerThickness, double idScale, int idThickness) {
 
 
     CV_Assert(_image.getMat().total() != 0 &&
@@ -1382,11 +1383,11 @@ void drawDetectedMarkers(InputOutputArray _image, InputArrayOfArrays _corners,
             Point2f p0, p1;
             p0 = currentMarker.ptr< Point2f >(0)[j];
             p1 = currentMarker.ptr< Point2f >(0)[(j + 1) % 4];
-            line(_image, p0, p1, borderColor, 1);
+            line(_image, p0, p1, borderColor, borderThickness, LINE_AA);
         }
         // draw first corner mark
         rectangle(_image, currentMarker.ptr< Point2f >(0)[0] - Point2f(3, 3),
-                  currentMarker.ptr< Point2f >(0)[0] + Point2f(3, 3), cornerColor, 1, LINE_AA);
+                  currentMarker.ptr< Point2f >(0)[0] + Point2f(3, 3), cornerColor, cornerThickness, LINE_AA);
 
         // draw ID
         if(_ids.total() != 0) {
@@ -1396,7 +1397,7 @@ void drawDetectedMarkers(InputOutputArray _image, InputArrayOfArrays _corners,
             cent = cent / 4.;
             stringstream s;
             s << "id=" << _ids.getMat().ptr< int >(0)[i];
-            putText(_image, s.str(), cent, FONT_HERSHEY_SIMPLEX, 0.5, textColor, 2);
+            putText(_image, s.str(), cent, FONT_HERSHEY_SIMPLEX, idScale, textColor, idThickness, LINE_AA);
         }
     }
 }
@@ -1406,7 +1407,7 @@ void drawDetectedMarkers(InputOutputArray _image, InputArrayOfArrays _corners,
 /**
  */
 void drawAxis(InputOutputArray _image, InputArray _cameraMatrix, InputArray _distCoeffs,
-              InputArray _rvec, InputArray _tvec, float length) {
+              InputArray _rvec, InputArray _tvec, float length, int thickness) {
 
     CV_Assert(_image.getMat().total() != 0 &&
               (_image.getMat().channels() == 1 || _image.getMat().channels() == 3));
@@ -1424,11 +1425,11 @@ void drawAxis(InputOutputArray _image, InputArray _cameraMatrix, InputArray _dis
 
     // draw axis lines
     clipLine(_image.size(), imagePoints[0], imagePoints[1]);
-    line(_image, imagePoints[0], imagePoints[1], Scalar(0, 0, 255), 3);
+    line(_image, imagePoints[0], imagePoints[1], Scalar(0, 0, 255), thickness, LINE_AA);
     clipLine(_image.size(), imagePoints[0], imagePoints[2]);
-    line(_image, imagePoints[0], imagePoints[2], Scalar(0, 255, 0), 3);
+    line(_image, imagePoints[0], imagePoints[2], Scalar(0, 255, 0), thickness, LINE_AA);
     clipLine(_image.size(), imagePoints[0], imagePoints[3]);
-    line(_image, imagePoints[0], imagePoints[3], Scalar(255, 0, 0), 3);
+    line(_image, imagePoints[0], imagePoints[3], Scalar(255, 0, 0), thickness, LINE_AA);
 }
 
 
