@@ -581,6 +581,8 @@ namespace aruco
 {
 using namespace std;
 
+int _getBorderErrors(const Mat &bits, int markerSize, int borderSize);
+
 void _identifyCandidates(InputArray _image, vector< vector< Point2f > >& _candidates,
                          InputArrayOfArrays _contours, const Ptr<Dictionary> &_dictionary,
                          vector< vector< Point2f > >& _accepted, vector< int >& ids,

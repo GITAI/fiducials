@@ -457,7 +457,8 @@ static Mat _extractBits(InputArray _image, InputArray _corners, int markerSize,
 /**
   * @brief Return number of erroneous bits in border, i.e. number of white bits in border.
   */
-static int _getBorderErrors(const Mat &bits, int markerSize, int borderSize) {
+/*static*/
+int _getBorderErrors(const Mat &bits, int markerSize, int borderSize) {
 
     int sizeWithBorders = markerSize + 2 * borderSize;
 
