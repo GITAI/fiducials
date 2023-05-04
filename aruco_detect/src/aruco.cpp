@@ -457,7 +457,6 @@ static Mat _extractBits(InputArray _image, InputArray _corners, int markerSize,
 /**
   * @brief Return number of erroneous bits in border, i.e. number of white bits in border.
   */
-/*static*/
 int _getBorderErrors(const Mat &bits, int markerSize, int borderSize) {
 
     int sizeWithBorders = markerSize + 2 * borderSize;
@@ -605,13 +604,6 @@ static void _copyVector2Output(vector< vector< Point2f > > &vec, OutputArrayOfAr
 /**
  * @brief Identify square candidates according to a marker dictionary
  */
-/*
-static void _identifyCandidates(InputArray _image, vector< vector< Point2f > >& _candidates,
-                                InputArrayOfArrays _contours, const Ptr<Dictionary> &_dictionary,
-                                vector< vector< Point2f > >& _accepted, vector< int >& ids,
-                                const Ptr<DetectorParameters> &params,
-                                OutputArrayOfArrays _rejected = noArray()) {
-*/
 void _identifyCandidates(InputArray _image, vector< vector< Point2f > >& _candidates,
                          InputArrayOfArrays _contours, const Ptr<Dictionary> &_dictionary,
                          vector< vector< Point2f > >& _accepted, vector< int >& ids,
@@ -667,9 +659,6 @@ void _identifyCandidates(InputArray _image, vector< vector< Point2f > >& _candid
 /**
   * @brief Final filter of markers after its identification
   */
-/*
-static void _filterDetectedMarkers(vector< vector< Point2f > >& _corners, vector< int >& _ids) {
-*/
 void _filterDetectedMarkers(vector< vector< Point2f > >& _corners, vector< int >& _ids) {
 
     CV_Assert(_corners.size() == _ids.size());
