@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<package format="2">
+<package format="3">
   <name>aruco_detect</name>
   <version>0.11.0</version>
   <description>Fiducial detection based on the aruco library</description>
@@ -23,8 +23,8 @@
   <depend>cv_bridge</depend>
   <depend>fiducial_msgs</depend>
   <depend>dynamic_reconfigure</depend>
-  <depend>python-cairosvg</depend>
-  <depend>python-joblib</depend>
+  <depend>python3-cairosvg</depend>
+  <depend>python3-joblib</depend>
   <depend>nodelet</depend>
   <depend>backward_ros</depend>
 
